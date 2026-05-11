@@ -1,4 +1,4 @@
-package cl.sanossalvos.pet;
+package com.sanossalvos.pet;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

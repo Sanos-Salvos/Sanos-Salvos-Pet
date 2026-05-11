@@ -1,11 +1,9 @@
-package com.sanosysalvos.pet.repository;
+package com.sanossalvos.pet.PetRepository;
 
-import com.sanosysalvos.pet.model.Mascota;
+import com.sanossalvos.pet.PetModel.Mascota;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import java.util.List;
 
 @Repository
 public interface MascotaRepository extends JpaRepository<Mascota, Long> {
-    List<Mascota> findByEstado(String estado);
 }

@@ -1,15 +1,22 @@
 package com.sanossalvos.pet.PetDTO;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MascotaDTO {
+    private Long id;
     private String nombre;
     private String raza;
     private String color;
     private String tamano;
     private String sexo;
     private Integer edad;
-    private String tipoReporte; // "perdido" o "encontrado"
+    private String tipoReporte;
     private String contacto;
 }

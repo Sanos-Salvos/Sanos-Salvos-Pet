@@ -19,7 +19,7 @@
 ## Configuración
 Archivo: `src/main/resources/application.properties`
 ```properties
-server.port=8081
+server.port=8082
 spring.application.name=pet-service
 
 # Base de Datos

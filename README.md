@@ -1,36 +1,35 @@
-﻿# 🏥 Sanos-Salvos-Pet
+﻿# Sanos-Salvos-Pet
 
-Microservicio de gestión de mascotas y alertas
+Microservicio de gestion de mascotas y alertas de rastreo
 
 ## Puerto
-\\\
+
 8082
-\\\
 
 ## Base de datos
-\\\
+
 mascotas_db
-\\\
 
-## Endpoints
-\\\
-/api/pet/registrar, /api/pet/listar, /api/pet/{id}
-\\\
+## Endpoints disponibles
 
-## Ejecución
+POST /api/pet/registrar
+GET /api/pet/listar
+GET /api/pet/{id}
+PUT /api/pet/actualizar/{id}
+DELETE /api/pet/eliminar/{id}
 
-### Docker
-\\\ash
+## Ejecucion con Docker
+
 docker-compose up --build
-\\\
 
-### Manual
-\\\ash
+## Ejecucion manual
+
 mvn spring-boot:run
-\\\
 
-## Stack
+## Tecnologias
+
 - Java 21
 - Spring Boot 3.2
+- Spring Security + JWT
 - PostgreSQL
 - Docker

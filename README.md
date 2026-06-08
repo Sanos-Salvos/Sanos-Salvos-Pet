@@ -1,54 +1,36 @@
-# Sanos-Salvos-Pet
+﻿# 🏥 Sanos-Salvos-Pet
 
-[cite_start]Microservicio encargado de la gestión integral de mascotas (CRUD), historiales de salud y envío de eventos de notificación mediante Apache Kafka dentro del ecosistema Sanos y Salvos[cite: 72].
+Microservicio de gestión de mascotas y alertas
 
-## Requisitos
-* Java JDK 17
-* Maven 3.8+
-* Instancia de PostgreSQL
-* Apache Kafka (Producer)
+## Puerto
+\\\
+8082
+\\\
 
-## Instalación
-1. Clonar repositorio:
-   git clone https://github.com/TU_USUARIO/Sanos-Salvos-Pet.git
-   cd Sanos-Salvos-Pet
+## Base de datos
+\\\
+mascotas_db
+\\\
 
-2. Instalar dependencias:
-   .\mvnw clean install (Windows) o ./mvnw clean install (Linux/Mac)
+## Endpoints
+\\\
+/api/pet/registrar, /api/pet/listar, /api/pet/{id}
+\\\
 
-## Configuración
-Archivo: `src/main/resources/application.properties`
-```properties
-server.port=8082
-spring.application.name=pet-service
+## Ejecución
 
-# Base de Datos
-spring.datasource.url=jdbc:postgresql://localhost:5432/pet_db
-spring.datasource.username=postgres
-spring.datasource.password=tu_password
+### Docker
+\\\ash
+docker-compose up --build
+\\\
 
-# Kafka Config
-spring.kafka.bootstrap-servers=localhost:9092
-```
+### Manual
+\\\ash
+mvn spring-boot:run
+\\\
 
-## Ejecucion Pruebas Api
-```
-Registrar mascota
-
-Desde consola: mvn spring-boot:run
-
-El servicio quedará disponible en: http://localhost:8081
-{
-"nombre": "Firulais",
-"especie": "Perro",
-"raza": "Labrador",
-"usuarioId": 1
-}
-```
-## Tecnologías utilizadas
-
-Spring Boot 3.2.4
-
-Spring Cloud OpenFeign (Patrón Proxy)
-
-Resilience4j (Circuit Breaker)
+## Stack
+- Java 21
+- Spring Boot 3.2
+- PostgreSQL
+- Docker

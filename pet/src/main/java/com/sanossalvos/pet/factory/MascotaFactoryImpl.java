@@ -1,7 +1,7 @@
-package com.sanossalvos.pet.PetFactory;
+package com.sanossalvos.pet.factory;
 
-import com.sanossalvos.pet.PetDTO.MascotaDTO;
-import com.sanossalvos.pet.PetModel.Mascota;
+import com.sanossalvos.pet.dto.MascotaDTO;
+import com.sanossalvos.pet.model.Mascota;
 import org.springframework.stereotype.Component;
 
 @Component

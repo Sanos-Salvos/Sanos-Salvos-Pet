@@ -1,11 +1,10 @@
 package com.sanossalvos.pet.service;
 
-import com.sanossalvos.pet.PetDTO.MascotaDTO;
-import com.sanossalvos.pet.PetFactory.IMascotaFactory;
-import com.sanossalvos.pet.PetModel.Mascota;
-import com.sanossalvos.pet.PetProducer.PetProducer;
-import com.sanossalvos.pet.PetRepository.MascotaRepository;
-import com.sanossalvos.pet.PetService.MascotaServiceImpl;
+import com.sanossalvos.pet.dto.MascotaDTO;
+import com.sanossalvos.pet.factory.IMascotaFactory;
+import com.sanossalvos.pet.model.Mascota;
+import com.sanossalvos.pet.producer.PetProducer;
+import com.sanossalvos.pet.repository.MascotaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

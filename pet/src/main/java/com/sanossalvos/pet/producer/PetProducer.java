@@ -1,4 +1,4 @@
-package com.sanossalvos.pet.PetProducer;
+package com.sanossalvos.pet.producer;
 
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;

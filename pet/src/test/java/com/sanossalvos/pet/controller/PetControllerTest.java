@@ -1,8 +1,7 @@
 package com.sanossalvos.pet.controller;
 
-import com.sanossalvos.pet.PetController.PetController;
-import com.sanossalvos.pet.PetDTO.MascotaDTO;
-import com.sanossalvos.pet.PetService.IMascotaService;
+import com.sanossalvos.pet.dto.MascotaDTO;
+import com.sanossalvos.pet.service.IMascotaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

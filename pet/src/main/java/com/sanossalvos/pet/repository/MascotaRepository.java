@@ -1,6 +1,6 @@
-package com.sanossalvos.pet.PetRepository;
+package com.sanossalvos.pet.repository;
 
-import com.sanossalvos.pet.PetModel.Mascota;
+import com.sanossalvos.pet.model.Mascota;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package com.sanossalvos.pet.PetController;
+package com.sanossalvos.pet.controller;
 
-import com.sanossalvos.pet.PetDTO.MascotaDTO;
-import com.sanossalvos.pet.PetService.IMascotaService;
+import com.sanossalvos.pet.dto.MascotaDTO;
+import com.sanossalvos.pet.service.IMascotaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

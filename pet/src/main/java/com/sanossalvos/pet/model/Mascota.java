@@ -1,4 +1,4 @@
-package com.sanossalvos.pet.PetModel;
+package com.sanossalvos.pet.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

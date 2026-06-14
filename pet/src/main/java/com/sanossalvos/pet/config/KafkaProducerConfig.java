@@ -1,4 +1,4 @@
-package com.sanossalvos.pet.PetConfig;
+package com.sanossalvos.pet.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;

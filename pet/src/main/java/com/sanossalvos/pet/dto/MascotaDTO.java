@@ -1,4 +1,4 @@
-package com.sanossalvos.pet.PetDTO;
+package com.sanossalvos.pet.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

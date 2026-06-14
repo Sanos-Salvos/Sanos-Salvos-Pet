@@ -1,10 +1,10 @@
-package com.sanossalvos.pet.PetService;
+package com.sanossalvos.pet.service;
 
-import com.sanossalvos.pet.PetDTO.MascotaDTO;
-import com.sanossalvos.pet.PetFactory.IMascotaFactory;
-import com.sanossalvos.pet.PetModel.Mascota;
-import com.sanossalvos.pet.PetProducer.PetProducer;
-import com.sanossalvos.pet.PetRepository.MascotaRepository;
+import com.sanossalvos.pet.dto.MascotaDTO;
+import com.sanossalvos.pet.factory.IMascotaFactory;
+import com.sanossalvos.pet.model.Mascota;
+import com.sanossalvos.pet.producer.PetProducer;
+import com.sanossalvos.pet.repository.MascotaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +27,11 @@ public class MascotaServiceImpl implements IMascotaService {
     public MascotaDTO registrarMascota(MascotaDTO dto) {
         Mascota entidad = factory.crearEntidad(dto);
         Mascota guardada = repository.save(entidad);
-        producer.enviarEventoMascota("NUEVA_MASCOTA_REGISTRADA:" + guardada.getId());
+        try {
+            producer.enviarEventoMascota("NUEVA_MASCOTA_REGISTRADA:" + guardada.getId());
+        } catch (Exception e) {
+            System.err.println("Kafka no disponible, evento no enviado: " + e.getMessage());
+        }
         return factory.crearDTO(guardada);
     }
 
@@ -51,17 +55,27 @@ public class MascotaServiceImpl implements IMascotaService {
                 .orElseThrow(() -> new RuntimeException("Mascota no encontrada con ID: " + id));
 
         mascotaExistente.setNombre(dto.getNombre());
+        mascotaExistente.setEspecie(dto.getEspecie());
         mascotaExistente.setRaza(dto.getRaza());
+        mascotaExistente.setEstado(dto.getEstado());
+        mascotaExistente.setLat(dto.getLat());
+        mascotaExistente.setLng(dto.getLng());
+        mascotaExistente.setComuna(dto.getComuna());
+        mascotaExistente.setContacto(dto.getContacto());
+        mascotaExistente.setImagen(dto.getImagen());
         mascotaExistente.setColor(dto.getColor());
         mascotaExistente.setTamano(dto.getTamano());
         mascotaExistente.setSexo(dto.getSexo());
         mascotaExistente.setEdad(dto.getEdad());
-        mascotaExistente.setContacto(dto.getContacto());
-
-        if (mascotaExistente.getTipoReporte() != null && !mascotaExistente.getTipoReporte().equals(dto.getTipoReporte())) {
-            producer.enviarEventoMascota("CAMBIO_REPORTE_MASCOTA:" + id + ":" + dto.getTipoReporte());
-        }
         mascotaExistente.setTipoReporte(dto.getTipoReporte());
+
+        try {
+            if (mascotaExistente.getTipoReporte() != null && !mascotaExistente.getTipoReporte().equals(dto.getTipoReporte())) {
+                producer.enviarEventoMascota("CAMBIO_REPORTE_MASCOTA:" + id + ":" + dto.getTipoReporte());
+            }
+        } catch (Exception e) {
+            System.err.println("Kafka no disponible, evento no enviado: " + e.getMessage());
+        }
 
         Mascota mascotaActualizada = repository.save(mascotaExistente);
         return factory.crearDTO(mascotaActualizada);

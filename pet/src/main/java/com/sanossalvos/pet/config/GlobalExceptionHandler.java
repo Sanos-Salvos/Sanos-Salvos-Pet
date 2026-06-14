@@ -1,4 +1,4 @@
-package com.sanossalvos.pet.PetConfig;
+package com.sanossalvos.pet.config;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

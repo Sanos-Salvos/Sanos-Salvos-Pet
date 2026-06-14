@@ -1,6 +1,6 @@
-package com.sanossalvos.pet.PetService;
+package com.sanossalvos.pet.service;
 
-import com.sanossalvos.pet.PetDTO.MascotaDTO;
+import com.sanossalvos.pet.dto.MascotaDTO;
 import java.util.List;
 
 public interface IMascotaService {

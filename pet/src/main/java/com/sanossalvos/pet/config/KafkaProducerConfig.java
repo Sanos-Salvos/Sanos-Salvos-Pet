@@ -1,4 +1,4 @@
-package com.sanossalvos.pet.PetConfig;
+package com.sanossalvos.pet.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -19,6 +19,9 @@ public class KafkaProducerConfig {
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        configProps.put(ProducerConfig.MAX_BLOCK_MS_CONFIG, 3000);
+        configProps.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 3000);
+        configProps.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, 5000);
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 

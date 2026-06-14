@@ -27,11 +27,8 @@ public class MascotaServiceImpl implements IMascotaService {
     public MascotaDTO registrarMascota(MascotaDTO dto) {
         Mascota entidad = factory.crearEntidad(dto);
         Mascota guardada = repository.save(entidad);
-        try {
-            producer.enviarEventoMascota("NUEVA_MASCOTA_REGISTRADA:" + guardada.getId());
-        } catch (Exception e) {
-            System.err.println("Kafka no disponible, evento no enviado: " + e.getMessage());
-        }
+        producer.enviarEventoMascota("NUEVA_MASCOTA_REGISTRADA:" + guardada.getId());
+
         return factory.crearDTO(guardada);
     }
 
@@ -54,6 +51,8 @@ public class MascotaServiceImpl implements IMascotaService {
         Mascota mascotaExistente = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Mascota no encontrada con ID: " + id));
 
+        String reporteAnterior = mascotaExistente.getTipoReporte();
+
         mascotaExistente.setNombre(dto.getNombre());
         mascotaExistente.setEspecie(dto.getEspecie());
         mascotaExistente.setRaza(dto.getRaza());
@@ -69,12 +68,8 @@ public class MascotaServiceImpl implements IMascotaService {
         mascotaExistente.setEdad(dto.getEdad());
         mascotaExistente.setTipoReporte(dto.getTipoReporte());
 
-        try {
-            if (mascotaExistente.getTipoReporte() != null && !mascotaExistente.getTipoReporte().equals(dto.getTipoReporte())) {
-                producer.enviarEventoMascota("CAMBIO_REPORTE_MASCOTA:" + id + ":" + dto.getTipoReporte());
-            }
-        } catch (Exception e) {
-            System.err.println("Kafka no disponible, evento no enviado: " + e.getMessage());
+        if (reporteAnterior != null && !reporteAnterior.equals(dto.getTipoReporte())) {
+            producer.enviarEventoMascota("CAMBIO_REPORTE_MASCOTA:" + id + ":" + dto.getTipoReporte());
         }
 
         Mascota mascotaActualizada = repository.save(mascotaExistente);

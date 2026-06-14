@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/pet")
+@CrossOrigin(origins = "*")
 public class PetController {
 
     private final IMascotaService service;
@@ -16,13 +17,12 @@ public class PetController {
     public PetController(IMascotaService service) {
         this.service = service;
     }
-
-    @PostMapping("/registrar")
+    @PostMapping
     public ResponseEntity<MascotaDTO> registrar(@RequestBody MascotaDTO dto) {
         return ResponseEntity.ok(service.registrarMascota(dto));
     }
 
-    @GetMapping("/listar")
+    @GetMapping
     public ResponseEntity<List<MascotaDTO>> listar() {
         return ResponseEntity.ok(service.listarTodas());
     }
@@ -32,12 +32,12 @@ public class PetController {
         return ResponseEntity.ok(service.buscarPorId(id));
     }
 
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<MascotaDTO> actualizar(@PathVariable Long id, @RequestBody MascotaDTO dto) {
         return ResponseEntity.ok(service.actualizar(id, dto));
     }
 
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable Long id) {
         service.eliminar(id);
         return ResponseEntity.ok("Mascota eliminada correctamente");

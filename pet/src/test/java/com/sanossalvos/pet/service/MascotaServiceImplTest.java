@@ -136,8 +136,7 @@ class MascotaServiceImplTest {
         entity2.setNombre("Michi");
 
         MascotaDTO dto2 = MascotaDTO.builder().id(2L).nombre("Michi").build();
-
-        when(repository.findAll()).thenReturn(List.of(sampleEntity, entity2));
+        when(repository.findAll()).thenReturn(new java.util.ArrayList<>(List.of(sampleEntity, entity2)));
         when(factory.crearDTO(sampleEntity)).thenReturn(sampleDTO);
         when(factory.crearDTO(entity2)).thenReturn(dto2);
 

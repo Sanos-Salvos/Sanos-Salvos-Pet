@@ -5,6 +5,8 @@ import com.sanossalvos.pet.factory.IMascotaFactory;
 import com.sanossalvos.pet.model.Mascota;
 import com.sanossalvos.pet.producer.PetProducer;
 import com.sanossalvos.pet.repository.MascotaRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class MascotaServiceImpl implements IMascotaService {
+
+    private static final Logger log = LoggerFactory.getLogger(MascotaServiceImpl.class);
 
     private final MascotaRepository repository;
     private final IMascotaFactory factory;
@@ -27,7 +31,13 @@ public class MascotaServiceImpl implements IMascotaService {
     public MascotaDTO registrarMascota(MascotaDTO dto) {
         Mascota entidad = factory.crearEntidad(dto);
         Mascota guardada = repository.save(entidad);
-        producer.enviarEventoMascota("NUEVA_MASCOTA_REGISTRADA:" + guardada.getId());
+
+        // Bloque seguro contra caídas de Kafka: Permite que el test 'kafkaException_noRompeGuardado' pase con éxito
+        try {
+            producer.enviarEventoMascota("NUEVA_MASCOTA_REGISTRADA:" + guardada.getId());
+        } catch (Exception e) {
+            log.error("No se pudo enviar el evento de registro a Kafka para la mascota ID {}: {}", guardada.getId(), e.getMessage());
+        }
 
         return factory.crearDTO(guardada);
     }
@@ -69,7 +79,12 @@ public class MascotaServiceImpl implements IMascotaService {
         mascotaExistente.setTipoReporte(dto.getTipoReporte());
 
         if (reporteAnterior != null && !reporteAnterior.equals(dto.getTipoReporte())) {
-            producer.enviarEventoMascota("CAMBIO_REPORTE_MASCOTA:" + id + ":" + dto.getTipoReporte());
+            // Bloque seguro contra caídas de Kafka en la actualización de reportes
+            try {
+                producer.enviarEventoMascota("CAMBIO_REPORTE_MASCOTA:" + id + ":" + dto.getTipoReporte());
+            } catch (Exception e) {
+                log.error("No se pudo enviar el evento de cambio de reporte a Kafka para la mascota ID {}: {}", id, e.getMessage());
+            }
         }
 
         Mascota mascotaActualizada = repository.save(mascotaExistente);
